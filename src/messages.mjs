@@ -136,7 +136,7 @@ const en = {
       title: `Table "${p.table}" has row-level security (RLS) turned off`,
       impact: `Your app sends the Supabase URL and public key to every visitor. With RLS off, ${en.scope.everyone} can use them to read, change and delete every row in "${p.table}"${p.columns.length ? `, including ${listEn(p.columns)}` : ''}.${p.policies ? ` The ${p.policies} polic${p.policies === 1 ? 'y' : 'ies'} written for this table do nothing until RLS is on.` : ''}`,
       fix: [
-        `In the Supabase dashboard open Table Editor → ${p.table} and turn on RLS. (Database → Tables also has the switch.)`,
+        `In the Supabase dashboard open Table Editor → ${p.table} and turn on RLS. (Authentication → Policies lists every table and can turn it on too.)`,
         'Then add a policy that lets each user reach only their own rows. Until there is a policy, the app cannot read the table at all.',
         p.owner ? `The SQL below assumes "${p.owner}" holds the owner's user id.` : 'Replace user_id below with the column that stores who owns the row.',
         'If everyone really may read this table (a product list, say), use `for select using (true)` for reading and keep writing to the owner.',
@@ -419,7 +419,7 @@ const ja = {
       title: `テーブル「${p.table}」の RLS（行ごとの権限）が切れています`,
       impact: `アプリは Supabase の URL と公開用の鍵を、サイトを開いた人全員に渡しています。RLS が切れていると、それを使って${ja.scope.everyone}「${p.table}」の全部の行を読み・書き換え・消せます${p.columns.length ? `（${listJa(p.columns)} も含めて）` : ''}。${p.policies ? `このテーブル用に書かれた ${p.policies} 個のポリシーは、RLS を入れるまで何もしていません。` : ''}`,
       fix: [
-        `Supabase の管理画面で「Table Editor」→「${p.table}」を開き、RLS をオンにします（「Database」→「Tables」にもスイッチがあります）。`,
+        `Supabase の管理画面で「Table Editor」→「${p.table}」を開き、RLS をオンにします（「Authentication」→「Policies」でも、テーブルごとにオンにできます）。`,
         'そのうえで、自分の行だけに届くポリシーを足します。ポリシーが1つも無いと、アプリからもこのテーブルが読めなくなります。',
         p.owner ? `下の SQL は「${p.owner}」列に持ち主のユーザー ID が入っている前提です。` : '下の SQL の user_id は、行の持ち主を入れている列の名前に置き換えてください。',
         '商品一覧のように誰が読んでもよいテーブルなら、読むのは `for select using (true)` で全員に許し、書くのは持ち主だけにします。',
