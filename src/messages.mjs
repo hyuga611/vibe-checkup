@@ -327,7 +327,7 @@ const ja = {
   header: (root, stack, files) => `vibe-checkup — ${root}${stack.length ? `（${stack.join('・')}）` : ''}・${files} ファイルを読みました`,
   summary: (c) => {
     const total = c.critical + c.high + c.medium;
-    if (!total) return '問題は見つかりませんでした。ただし、このツールが見ないもの（README の「見ないもの」）は別に確かめてください。';
+    if (!total) return '問題は見つかりませんでした。ただし、このツールが見ないもの（README の「調べないこと」）は別に確かめてください。';
     const parts = [c.critical && `重大 ${c.critical}`, c.high && `高 ${c.high}`, c.medium && `中 ${c.medium}`].filter(Boolean);
     return `${total} 件の問題が見つかりました（${parts.join('・')}）。【重大】は、リンクを誰かに教える前に直してください。`;
   },
