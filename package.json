@@ -1,6 +1,6 @@
 {
   "name": "vibe-checkup",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Check an AI-built web app before you publish it: Supabase tables without RLS, Firebase rules open to everyone, and secret keys shipped to the browser, each explained in plain words with how to fix it. Zero-dependency; reads files only unless you pass --live.",
   "type": "module",
   "bin": {
