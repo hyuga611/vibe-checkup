@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        node: [18, 20, 22, 24]
+        include:
+          - os: windows-latest
+            node: 22
+          - os: macos-latest
+            node: 22
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm test
+      - name: examples/bad fails and examples/good passes, as installed from the package
+        shell: bash
+        run: |
+          tgz=$(npm pack --silent)
+          check() { npx --yes --package="./$tgz" vibe-checkup "$@" > /dev/null; }
+          set +e
+          check examples/bad; bad=$?
+          check examples/good; good=$?
+          echo "examples/bad exit=$bad, examples/good exit=$good"
+          test "$bad" = 1 && test "$good" = 0
